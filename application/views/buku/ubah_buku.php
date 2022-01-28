@@ -12,21 +12,21 @@
             <?php foreach ($buku as $b) { ?>
                 <form action="<?= base_url('buku/ubahBuku'); ?>" method="post" enctype="multipart/form-data">
                     <div class="form-group">
-                        <input type="hidden" name="id" id="id" value="<?php echo $b['id']; ?>">
+                        <input type="hidden" name="id" id="id" value="<?php echo $b['id_buku']; ?>">
                         <input type="text" class="form-control form-control-user" id="judul_buku" name="judul_buku" placeholder="Masukkan Judul Buku" value="<?= $b['judul_buku']; ?>">
                     </div>
-                    
+
                     <div class="form-group">
                         <select name="id_kategori" class="form-control form-control-user">
                             <option value="">Pilih kategori</option>
                             <?php
-                            foreach ($kategori as $ka) { 
-                                if ( $ka['id_kategori'] == $b['id_kategori']) { ?>
-                                    <option value="<?= $ka['id_kategori']; ?>"selected><?= $ka['kategori']; ?></option>
+                            foreach ($kategori as $ka) {
+                                if ($ka['id_kategori'] == $b['id_kategori']) { ?>
+                                    <option value="<?= $ka['id_kategori']; ?>" selected><?= $ka['kategori']; ?></option>
                                 <?php
                                 } else { ?>
                                     <option value="<?= $ka['id_kategori']; ?>"><?= $ka['kategori']; ?></option>
-                                <?php    
+                            <?php
                                 }
                             } ?>
                         </select>
@@ -43,7 +43,7 @@
                             <option value="<?= $b['tahun_terbit']; ?>"><?= $b['tahun_terbit']; ?></option>
                             <?php
                             for ($i = date('Y'); $i > 1500; $i--) { ?>
-                            
+
                                 <option value="<?= $i; ?>"><?= $i; ?></option>
                             <?php } ?>
                         </select>

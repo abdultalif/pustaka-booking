@@ -93,7 +93,7 @@ class Buku extends CI_Controller
 
     public function hapusBuku()
     {
-        $where = ['id' => $this->uri->segment(3)];
+        $where = ['id_buku' => $this->uri->segment(3)];
         $this->ModelBuku->hapusBuku($where);
         $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-message" role="alert">Data Buku Berhasil dihapus</div>');
         redirect('buku');
@@ -103,8 +103,8 @@ class Buku extends CI_Controller
     {
         $data['judul'] = 'Ubah Data Buku';
         $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
-        $data['buku'] = $this->ModelBuku->bukuWhere(['id' => $this->uri->segment(3)])->result_array();
-        $kategori = $this->ModelBuku->joinKategoriBuku(['buku.id' => $this->uri->segment(3)])->result_array();
+        $data['buku'] = $this->ModelBuku->bukuWhere(['id_buku' => $this->uri->segment(3)])->result_array();
+        $kategori = $this->ModelBuku->joinKategoriBuku(['buku.id_buku' => $this->uri->segment(3)])->result_array();
         foreach ($kategori as $k) {
             $data['id'] = $k['id_kategori'];
             $data['k'] = $k['kategori'];
@@ -179,7 +179,7 @@ class Buku extends CI_Controller
                 'image' => $gambar
             ];
 
-            $this->ModelBuku->updateBuku($data, ['id' => $this->input->post('id')]);
+            $this->ModelBuku->updateBuku($data, ['id_buku' => $this->input->post('id')]);
             $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-message" role="alert">Data Buku Berhasil diubah</div>');
             redirect('buku');
         }
@@ -205,7 +205,7 @@ class Buku extends CI_Controller
         } else {
             $data = [
                 'kategori' => $this->input->post('kategori', TRUE)
-            ]; 
+            ];
 
             $this->ModelBuku->simpanKategori($data);
             $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-message" role="alert">Data Kategori Berhasil di tambahkan</div>');
